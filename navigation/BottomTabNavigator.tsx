@@ -5,6 +5,12 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+
+import MapScreen from '../screens/MapScreen';
+import UpdatesScreen from '../screens/UpdatesScreen';
+import SettingScreen from '../screens/SettingScreen';
+import ResultScreen from '../screens/ResultScreen';
+
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
@@ -16,20 +22,28 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Search"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
+        name="Search"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Updates"
+        component={UpdatesScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+        }}
+      />
+
+      <BottomTab.Screen 
+        name = "Setting"
+        component = {SettingScreen}
+        options = {{
+
         }}
       />
     </BottomTab.Navigator>
@@ -50,24 +64,31 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        name="Search"
+        component={MapScreen}
+        options={{headerShown:false}}
+
+        // headerTitle: 'Tab One Title' 
+      />
+      <TabOneStack.Screen 
+        name = "Result"
+        component={ResultScreen}
+        options = {{}}
       />
     </TabOneStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+// const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
-      />
-    </TabTwoStack.Navigator>
-  );
-}
+// function TabTwoNavigator() {
+//   return (
+//     <TabTwoStack.Navigator>
+//       <TabTwoStack.Screen
+//         name="TabTwoScreen"
+//         component={TabTwoScreen}
+//         options={{ headerTitle: 'Tab Two Title' }}
+//       />
+//     </TabTwoStack.Navigator>
+//   );
+// }
