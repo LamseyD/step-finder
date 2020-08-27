@@ -73,7 +73,7 @@ function TabOneNavigator() {
       <TabOneStack.Screen 
         name = "Result"
         component={ResultScreen}
-        options = {{}}
+        options = {({route}) => ({title: route.params.steps})}
       />
     </TabOneStack.Navigator>
   );
