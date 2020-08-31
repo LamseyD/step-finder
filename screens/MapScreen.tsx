@@ -55,7 +55,7 @@ class MapScreen extends React.Component{
     render() {
         return (
             <View style = {styles.container} >
-                {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style = {{position:"absolute", alignItems: "center"}}>
                             {(!this.state.current_location) && <MapView style = {styles.mapStyle} provider={PROVIDER_GOOGLE}/> 
                             || <MapView 
@@ -66,7 +66,7 @@ class MapScreen extends React.Component{
                             />
                             }    
                     </View>
-                
+                </TouchableWithoutFeedback>
                     
                     <View style = {this.state.custom_location && ({...styles.search_box, height: 135}) || (styles.search_box)}>
                         <View style = {{...styles.search_bar}}>
