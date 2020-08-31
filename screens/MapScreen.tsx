@@ -15,10 +15,13 @@ class MapScreen extends React.Component{
     state = {
         custom_location: false,
         steps: 0, 
-        current_location: null
+        current_location: null,
+        initialRegion: null,
     }
 
-    
+    onMapPress = () => {
+        Keyboard.dismiss()
+    }
 
     getLocationAsync = async () => {
         const {status} = await Permissions.askAsync(Permissions.LOCATION)
@@ -45,11 +48,14 @@ class MapScreen extends React.Component{
         }
     }
 
+    componentWillUnmount(){
+
+    }
+
     processSteps = () => {
         let dist_km = this.state.steps * 0.7143
         let dist_mi = this.state.steps * 0.7143 / 1.60934
-        let tmp_steps = this.state.steps
-        this.props.navigation.push('Result', {steps: tmp_steps, dist_km, dist_mi})
+        this.props.navigation.push('Result', {steps: this.state.steps, dist_km, dist_mi, current_location: this.state.current_location})
     }
 
     render() {
@@ -57,16 +63,18 @@ class MapScreen extends React.Component{
             <View style = {styles.container} >
                 {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
                     <View style = {{position:"absolute", alignItems: "center"}}>
-                            {(!this.state.current_location) && <MapView style = {styles.mapStyle} provider={PROVIDER_GOOGLE}/> 
+                            {(!this.state.current_location) && <MapView style = {styles.mapStyle} onPress = {this.onMapPress} provider={PROVIDER_GOOGLE}/> 
                             || <MapView 
                                 style = {styles.mapStyle} 
                                 provider={PROVIDER_GOOGLE}
-                                showsUserLocation = {true}
+                                onPress= {this.onMapPress}
+                                showsUserLocation
+                                showsMyLocationButton
                                 initialRegion={{latitude: this.state.current_location.coords.latitude, longitude: this.state.current_location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421}}
                             />
                             }    
                     </View>
-                
+                    {/* </TouchableWithoutFeedback> */}
                     
                     <View style = {this.state.custom_location && ({...styles.search_box, height: 135}) || (styles.search_box)}>
                         <View style = {{...styles.search_bar}}>
@@ -102,7 +110,7 @@ class MapScreen extends React.Component{
                         />
                     </View>
                     
-                {/* </TouchableWithoutFeedback> */}
+                
                 
             </View>
 
@@ -122,6 +130,7 @@ const styles = StyleSheet.create({
     mapStyle: {
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
+      bottom: 48,
     },
     text_input: {
         height: 42, 
