@@ -30,10 +30,8 @@ const AddressBox = props => (
                 </Text>
             </View>
             <View style = {{paddingStart: 40}}>
-            {/* <Image style = {{height: 50, width: 50}} source = "../assets/images/default.jpg"/> */}
-                <View style = {{backgroundColor: 'black', height: 50, width: 75}}>
+                <Image style = {{height: 50, width: 50}} source = {require("../assets/images/default.jpg")}/>
 
-                </View>
                 <View>
                     {/* <Button style = {{width: 75}} title="Go"/> */}
 

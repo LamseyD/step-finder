@@ -29,10 +29,8 @@ const UpdateBox = props => (
             <Text> Hello World</Text>
         </View>
         <View style = {{right: 20, position: "absolute"}}>
-            <View style = {{backgroundColor: "black", width: 95, height: 95}}>
-
-            </View>
-            <Image source = {'../assets/images/default.jpg'}/>
+            <Image style = {{width: 95, height: 95}} source = {require('../assets/images/default.jpg')}/>
+            {/*set icons according to props here */}
 
         </View>
     </View>
