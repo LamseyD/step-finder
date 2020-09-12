@@ -80,12 +80,14 @@ class MapScreen extends React.Component{
                 <View style = {styles.search_bar}>
                     
                     <SearchBar
-                        containerStyle = {{paddingHorizontal: 20}}
+                        containerStyle = {{paddingHorizontal: 20, backgroundColor: "#f9f9f9"}}
+                        inputContainerStyle = {{height: 45}}
                         placeholder= "Type in address..."
-                        searchIcon = {false} 
-                        cancelIcon
+                        platform = "android"
                         showCancel
+                        searchIcon = {false} 
                         lightTheme
+                        round
                         returnKeyLabel = "Go"
                         onChangeText= {this.handleAddressChange}
                     />
