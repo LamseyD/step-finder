@@ -1,10 +1,11 @@
 import React from 'react'
 // import {connect} from 'react-redux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
-import { View, Dimensions, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback} from 'react-native'
+import { View, Dimensions, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
-import { Button } from 'react-native-elements'
+import { Button, SearchBar } from 'react-native-elements'
+import AddressBox from '../components/AddressBox'
 
 class MapScreen extends React.Component{
 
@@ -54,6 +55,10 @@ class MapScreen extends React.Component{
         this.props.navigation.push('Result', {steps: this.state.steps, dist_km, dist_mi, current_location: this.state.current_location})
     }
 
+    handleAddressChange = () => {
+
+    }
+
     render() {
         return (
             <View style = {styles.container} >
@@ -63,16 +68,35 @@ class MapScreen extends React.Component{
                             || <MapView 
                                 style = {styles.mapStyle} 
                                 provider={PROVIDER_GOOGLE}
-                                onPress= {this.onMapPress}
+                                onLongPress = {e => console.log(e.nativeEvent)}
                                 showsUserLocation
                                 showsMyLocationButton
+                                mapPadding = {{bottom: 170}}
                                 initialRegion={{latitude: this.state.current_location.coords.latitude, longitude: this.state.current_location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421}}
                             />
                             }    
                     </View>
                 </TouchableWithoutFeedback>
+                <View style = {styles.search_bar}>
                     
-                    <View style = {this.state.custom_location && ({...styles.search_box, height: 135}) || (styles.search_box)}>
+                    <SearchBar
+                        containerStyle = {{paddingHorizontal: 20}}
+                        placeholder= "Type in address..."
+                        searchIcon = {false} 
+                        cancelIcon
+                        showCancel
+                        lightTheme
+                        returnKeyLabel = "Go"
+                        onChangeText= {this.handleAddressChange}
+                    />
+                </View>
+                <View style = {{top: 370}}>
+                    <AddressBox
+                        address = {(!this.state.current_location) && ({coords: {latitude: 0 /* temporary value */}}) || (this.state.current_location)} 
+                    />
+
+                </View>
+                    {/* <View style = {this.state.custom_location && ({...styles.search_box, height: 135}) || (styles.search_box)}>
                         <View style = {{...styles.search_bar}}>
                             
                             <View>
@@ -104,7 +128,7 @@ class MapScreen extends React.Component{
                             title = "Toggle Custom Location"
                             onPress={this.toggleSwitch}
                         />
-                    </View>
+                    </View> */}
                     
                 
                 
@@ -138,7 +162,7 @@ const styles = StyleSheet.create({
         borderRadius: 4
     },
     search_box: {
-        backgroundColor: "#f7f7f7", 
+        backgroundColor: "#f9f9f9", 
         width: Dimensions.get('window').width, 
         height: 85, 
         alignItems:"center", 
@@ -147,7 +171,8 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10
     },
     search_bar: {
-        flexDirection:"row",
+        width: Dimensions.get('window').width,
+        backgroundColor: "#f9f9f9",
         paddingTop: 20,
         // position: "absolute"
     },
