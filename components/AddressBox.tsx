@@ -8,30 +8,46 @@ const styles = StyleSheet.create({
         width: 340,
         height: 150,
         borderRadius: 10,
-        backgroundColor: 'rgba(249,249,249,0.97)',
+        backgroundColor: 'rgba(249,249,249,0.96)',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        // flexDirection: 'row'
     }
 })
 
 const AddressBox = props => (
     <View style = {styles.container}>
-        <View>
-            <Image style = {{height: 50, width: 50}} source = "../assets/images/default.jpeg"/>
-        </View>
-        <View style = {{flexDirection: 'row'}}>
+        <View style = {{flexDirection:'row'}}>
             <View>
+                <Text style = {{fontWeight:"bold", fontSize:20}}>
+                    Hello World
+                    {/*place holder for address */}
+                </Text>
                 <Text>
-                    {/* Hello World */}
+
                     {props.address.coords.latitude}
 
                 </Text>
             </View>
-            <View>
-                <Button style = {{width: 64}} title="Go"/>
+            <View style = {{paddingStart: 40}}>
+            {/* <Image style = {{height: 50, width: 50}} source = "../assets/images/default.jpg"/> */}
+                <View style = {{backgroundColor: 'black', height: 50, width: 75}}>
 
+                </View>
+                <View>
+                    {/* <Button style = {{width: 75}} title="Go"/> */}
+
+                </View>
             </View>
         </View>
+        <View style = {{borderBottomColor: "grey", borderBottomWidth: 1, width: styles.container.width, paddingTop: 20}}> 
+
+        </View>
+        <TouchableOpacity style = {{paddingTop: 20}}>
+            <Text style = {{color:"blue", fontSize: 16}}>
+                Select This Address
+            </Text>
+        </TouchableOpacity>
 
     </View>
 )
