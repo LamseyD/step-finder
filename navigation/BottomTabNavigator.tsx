@@ -15,6 +15,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
+
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -28,14 +29,14 @@ export default function BottomTabNavigator() {
         name="Search"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-map" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Updates"
         component={UpdatesScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-sunny" color={color} />,
         }}
       />
 
@@ -43,7 +44,7 @@ export default function BottomTabNavigator() {
         name = "Setting"
         component = {SettingScreen}
         options = {{
-
+          tabBarIcon: ({color}) => <TabBarIcon name= "ios-settings" color = {color}/>,
         }}
       />
     </BottomTab.Navigator>
