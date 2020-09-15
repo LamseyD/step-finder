@@ -1,11 +1,12 @@
 import React from 'react'
 // import {connect} from 'react-redux'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
-import { View, Dimensions, StyleSheet, Keyboard, TouchableWithoutFeedback} from 'react-native'
+import { View, Dimensions, StyleSheet, Keyboard, TouchableWithoutFeedback, Alert} from 'react-native'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import { Button, SearchBar } from 'react-native-elements'
 import AddressBox from '../components/AddressBox'
+import {} from '@types/googlemaps'
 
 class MapScreen extends React.Component{
 
@@ -18,6 +19,7 @@ class MapScreen extends React.Component{
         steps: 0, 
         current_location: null,
         initialRegion: null,
+        current_address: null
     }
 
     getLocationAsync = async () => {
@@ -30,8 +32,47 @@ class MapScreen extends React.Component{
         } else {
             throw new Error('Location permission not granted')
         }
-      }
+    }
     
+
+
+    geocodeLatLng = (
+        geocoder: google.maps.Geocoder,
+        map: google.maps.Map,
+        infowindow: google.maps.InfoWindow
+    ) => {
+        const input = (document.getElementById("latlng") as HTMLInputElement).value;
+        const latlngStr = input.split(",", 2);
+        const latlng = {
+            lat: parseFloat(latlngStr[0]),
+            lng: parseFloat(latlngStr[1])
+        };
+        geocoder.geocode(
+            { location: latlng },
+            (
+                results: google.maps.GeocoderResult[],
+                status: google.maps.GeocoderStatus
+            ) => {
+                if (status === "OK") {
+                    if (results[0]) {
+                        this.setState({address: results[0].formatted_address})
+                        // // map.setZoom(11);
+                        // const marker = new google.maps.Marker({
+                        // position: latlng,
+                        // map: map
+                        // });
+                        // infowindow.setContent(results[0].formatted_address);
+                        // infowindow.open(map, marker);
+                    } else {
+                        window.alert("No results found");
+                    }
+                } else {
+                    window.alert("Geocoder failed due to: " + status);
+                }
+            }
+        );
+    }
+
     toggleSwitch = () => {
         this.setState({custom_location: !this.state.custom_location})
     }
