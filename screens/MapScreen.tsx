@@ -6,7 +6,7 @@ import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
 import { Button, SearchBar } from 'react-native-elements'
 import AddressBox from '../components/AddressBox'
-import {} from '@types/googlemaps'
+import {} from '@types/google-map-react'
 
 class MapScreen extends React.Component{
 
@@ -36,42 +36,42 @@ class MapScreen extends React.Component{
     
 
 
-    geocodeLatLng = (
-        geocoder: google.maps.Geocoder,
-        map: google.maps.Map,
-        infowindow: google.maps.InfoWindow
-    ) => {
-        const input = (document.getElementById("latlng") as HTMLInputElement).value;
-        const latlngStr = input.split(",", 2);
-        const latlng = {
-            lat: parseFloat(latlngStr[0]),
-            lng: parseFloat(latlngStr[1])
-        };
-        geocoder.geocode(
-            { location: latlng },
-            (
-                results: google.maps.GeocoderResult[],
-                status: google.maps.GeocoderStatus
-            ) => {
-                if (status === "OK") {
-                    if (results[0]) {
-                        this.setState({address: results[0].formatted_address})
-                        // // map.setZoom(11);
-                        // const marker = new google.maps.Marker({
-                        // position: latlng,
-                        // map: map
-                        // });
-                        // infowindow.setContent(results[0].formatted_address);
-                        // infowindow.open(map, marker);
-                    } else {
-                        window.alert("No results found");
-                    }
-                } else {
-                    window.alert("Geocoder failed due to: " + status);
-                }
-            }
-        );
-    }
+    // geocodeLatLng = (
+    //     geocoder: google.maps.Geocoder,
+    //     map: google.maps.Map,
+    //     infowindow: google.maps.InfoWindow
+    // ) => {
+    //     const input = (document.getElementById("latlng") as HTMLInputElement).value;
+    //     const latlngStr = input.split(",", 2);
+    //     const latlng = {
+    //         lat: parseFloat(latlngStr[0]),
+    //         lng: parseFloat(latlngStr[1])
+    //     };
+    //     geocoder.geocode(
+    //         { location: latlng },
+    //         (
+    //             results: google.maps.GeocoderResult[],
+    //             status: google.maps.GeocoderStatus
+    //         ) => {
+    //             if (status === "OK") {
+    //                 if (results[0]) {
+    //                     this.setState({address: results[0].formatted_address})
+    //                     // // map.setZoom(11);
+    //                     // const marker = new google.maps.Marker({
+    //                     // position: latlng,
+    //                     // map: map
+    //                     // });
+    //                     // infowindow.setContent(results[0].formatted_address);
+    //                     // infowindow.open(map, marker);
+    //                 } else {
+    //                     window.alert("No results found");
+    //                 }
+    //             } else {
+    //                 window.alert("Geocoder failed due to: " + status);
+    //             }
+    //         }
+    //     );
+    // }
 
     toggleSwitch = () => {
         this.setState({custom_location: !this.state.custom_location})
