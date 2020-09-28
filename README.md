@@ -7,7 +7,7 @@ Find a route to walk around your location given a number of steps.
 ### Prerequisites
 - Forked/Cloned repo on dev machine
 - NodeJS/NPM Installed
-- Expo globally installed (npm install expo-cli --global)
+- Expo globally installed ( `npm install expo-cli --global` )
 
 ### Starting Dev Server
 
